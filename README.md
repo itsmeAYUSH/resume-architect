@@ -205,12 +205,8 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+See **[DEPLOYMENT.md](./DEPLOYMENT.md)** for Vercel and Docker. The client is a Next.js app: set `NEXT_PUBLIC_APP_URL` and run `npm run build` in `client/`.
 
-## Can I connect a custom domain to my Lovable project?
+## Custom domain
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Point your domain to your hosting (e.g. Vercel project settings → Domains).

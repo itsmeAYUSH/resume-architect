@@ -1,6 +1,52 @@
 import { Template } from '@/types/resume';
 
 export const templates: Template[] = [
+  // Canonical 5 (Minimal, Modern, Professional, ATS Friendly, Creative)
+  {
+    id: 'minimal',
+    name: 'Minimal',
+    description: 'Clean and simple design, ATS-friendly',
+    thumbnail: '/templates/minimal-fresh.png',
+    category: ['fresher', 'student', 'professional'],
+    popular: true,
+    colors: { primary: '#1a1a1a', secondary: '#f5f5f5', accent: '#2563eb' },
+  },
+  {
+    id: 'modern',
+    name: 'Modern',
+    description: 'Contemporary layout with accent highlights',
+    thumbnail: '/templates/minimal-fresh.png',
+    category: ['fresher', 'student', 'professional'],
+    popular: true,
+    colors: { primary: '#312e81', secondary: '#eef2ff', accent: '#4f46e5' },
+  },
+  {
+    id: 'professional',
+    name: 'Professional',
+    description: 'Timeless serif layout for senior roles',
+    thumbnail: '/templates/minimal-fresh.png',
+    category: ['professional'],
+    popular: true,
+    colors: { primary: '#0c0a09', secondary: '#fafaf9', accent: '#0369a1' },
+  },
+  {
+    id: 'ats',
+    name: 'ATS Friendly',
+    description: 'Optimized for applicant tracking systems',
+    thumbnail: '/templates/minimal-fresh.png',
+    category: ['fresher', 'student', 'professional'],
+    popular: true,
+    colors: { primary: '#000', secondary: '#fff', accent: '#333' },
+  },
+  {
+    id: 'creative',
+    name: 'Creative',
+    description: 'Bold design for creative roles',
+    thumbnail: '/templates/minimal-fresh.png',
+    category: ['professional', 'fresher'],
+    popular: true,
+    colors: { primary: '#134e4a', secondary: '#f0fdfa', accent: '#0d9488' },
+  },
   // Fresher/Student Templates
   {
     id: 'minimal-fresh',

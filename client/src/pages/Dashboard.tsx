@@ -1,7 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { FileText, Plus, Download, Trash2, History } from 'lucide-react';
 import { useResumeStore } from '@/store/resumeStore';
@@ -11,7 +13,7 @@ import ResumeRenderer from '@/components/templates/ResumeRenderer';
 import { toast } from 'sonner';
 
 export default function Dashboard() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const {
     resumeData,
     selectedTemplate,
@@ -73,17 +75,17 @@ export default function Dashboard() {
             </div>
             <div className="flex gap-2">
               {!hasContent && (
-                <Button onClick={() => navigate('/get-started')}>
+                <Button onClick={() => router.push('/get-started')}>
                   <Plus className="mr-2 h-4 w-4" />
                   Create Resume
                 </Button>
               )}
               {hasContent && (
                 <>
-                  <Button variant="outline" onClick={() => navigate('/builder')}>
+                  <Button variant="outline" onClick={() => router.push('/builder')}>
                     Edit Resume
                   </Button>
-                  <Button onClick={() => navigate('/preview')}>
+                  <Button onClick={() => router.push('/preview')}>
                     <Download className="mr-2 h-4 w-4" />
                     Export
                   </Button>
@@ -101,8 +103,8 @@ export default function Dashboard() {
                 Create a new resume or import an existing profile to get started.
               </p>
               <div className="flex gap-3">
-                <Button onClick={() => navigate('/get-started')}>Create New</Button>
-                <Button variant="outline" onClick={() => navigate('/import')}>
+                <Button onClick={() => router.push('/get-started')}>Create New</Button>
+                <Button variant="outline" onClick={() => router.push('/import')}>
                   Import Profile
                 </Button>
               </div>
@@ -179,7 +181,7 @@ export default function Dashboard() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => navigate('/templates')}
+                    onClick={() => router.push('/templates')}
                     className="w-full"
                   >
                     Change Template
@@ -187,7 +189,7 @@ export default function Dashboard() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => navigate('/import')}
+                    onClick={() => router.push('/import')}
                     className="w-full"
                   >
                     Import Data

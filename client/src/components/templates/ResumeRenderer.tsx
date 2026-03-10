@@ -2,19 +2,12 @@ import type { ResumeData, Template } from '@/types/resume';
 import { FileText } from 'lucide-react';
 import { lazy, Suspense } from 'react';
 
-// Lazy load all templates for code splitting
+// Lazy load templates for code splitting (Minimal, Modern, Professional, ATS, Creative)
 const MinimalTemplate = lazy(() => import('./renderers/MinimalTemplate'));
 const ModernTemplate = lazy(() => import('./renderers/ModernTemplate'));
 const ProfessionalTemplate = lazy(() => import('./renderers/ProfessionalTemplate'));
 const ATSTemplate = lazy(() => import('./renderers/ATSTemplate'));
 const CreativeTemplate = lazy(() => import('./renderers/CreativeTemplate'));
-
-// Re-export remaining templates (from previous build)
-const ExecutiveTemplate = lazy(() => import('./renderers/ExecutiveTemplate'));
-const NordicTemplate = lazy(() => import('./renderers/NordicTemplate'));
-const TerminalTemplate = lazy(() => import('./renderers/TerminalTemplate'));
-const ManuscriptTemplate = lazy(() => import('./renderers/ManuscriptTemplate'));
-const PrestigeTemplate = lazy(() => import('./renderers/PrestigeTemplate'));
 
 interface Props {
   data: ResumeData;
@@ -49,7 +42,9 @@ export default function ResumeRenderer({ data, template }: Props) {
 
   if (isEmpty) return <EmptyState />;
 
-  const templateId = template?.id ?? 'minimal';
+  // Normalize template id: "minimal-fresh" -> "minimal", "ats-friendly" -> "ats"
+  const rawId = template?.id ?? 'minimal';
+  const templateId = rawId.split('-')[0] === 'ats' ? 'ats' : rawId.split('-')[0];
 
   const templateMap: Record<string, React.ComponentType<{ data: ResumeData }>> = {
     minimal: MinimalTemplate as React.ComponentType<{ data: ResumeData }>,
@@ -57,11 +52,6 @@ export default function ResumeRenderer({ data, template }: Props) {
     professional: ProfessionalTemplate as React.ComponentType<{ data: ResumeData }>,
     ats: ATSTemplate as React.ComponentType<{ data: ResumeData }>,
     creative: CreativeTemplate as React.ComponentType<{ data: ResumeData }>,
-    executive: ExecutiveTemplate as React.ComponentType<{ data: ResumeData }>,
-    nordic: NordicTemplate as React.ComponentType<{ data: ResumeData }>,
-    terminal: TerminalTemplate as React.ComponentType<{ data: ResumeData }>,
-    manuscript: ManuscriptTemplate as React.ComponentType<{ data: ResumeData }>,
-    prestige: PrestigeTemplate as React.ComponentType<{ data: ResumeData }>,
   };
 
   const TemplateComponent = templateMap[templateId] ?? MinimalTemplate;

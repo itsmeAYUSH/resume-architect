@@ -1,7 +1,9 @@
+'use client';
+
 import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
+import { useRouter } from 'next/navigation';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -17,7 +19,7 @@ import { toast } from 'sonner';
 type ImportSource = 'json' | 'github' | 'linkedin' | null;
 
 export default function ImportProfile() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { importData } = useResumeStore();
   const [activeSource, setActiveSource] = useState<ImportSource>(null);
   const [githubUsername, setGithubUsername] = useState('');
@@ -182,7 +184,7 @@ export default function ImportProfile() {
                     <div className="mt-3 flex gap-2">
                       <Button
                         size="sm"
-                        onClick={() => navigate('/builder')}
+                        onClick={() => router.push('/builder')}
                         className="bg-green-600 hover:bg-green-700"
                       >
                         Go to Builder
@@ -209,7 +211,7 @@ export default function ImportProfile() {
                 <p>
                   New to Resume Architect?{' '}
                   <button
-                    onClick={() => navigate('/get-started')}
+                    onClick={() => router.push('/get-started')}
                     className="font-semibold text-accent hover:underline"
                   >
                     Create a new resume

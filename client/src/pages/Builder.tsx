@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import Header from '@/components/layout/Header';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,7 +35,7 @@ const steps = [
 ];
 
 const Builder = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { resumeData, setResumeData, selectedTemplate, userType } = useResumeStore();
   const [currentStep, setCurrentStep] = useState(0);
   const [showPreview, setShowPreview] = useState(false);
@@ -171,11 +173,11 @@ const Builder = () => {
   };
 
   const handleEnhanceWithAI = () => {
-    toast.info('AI enhancement requires backend integration. Connect to Lovable Cloud to enable this feature.');
+    toast.info('AI enhancement requires backend integration to enable this feature.');
   };
 
   const handleDownload = () => {
-    navigate('/preview');
+    router.push('/preview');
   };
 
   const renderStepContent = () => {
@@ -562,7 +564,7 @@ const Builder = () => {
               </Button>
               
               <div className="flex gap-2">
-                <Button variant="outline" onClick={() => navigate('/preview')}>
+                <Button variant="outline" onClick={() => router.push('/preview')}>
                   <Eye className="mr-2 h-4 w-4" />
                   Preview
                 </Button>

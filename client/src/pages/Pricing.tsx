@@ -2,7 +2,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const Pricing = () => {
   const features = [
@@ -55,7 +55,7 @@ const Pricing = () => {
                 </div>
                 
                 <Button variant="accent" size="xl" asChild className="w-full sm:w-auto">
-                  <Link to="/get-started">Start Building Free</Link>
+                  <Link href="/get-started">Start Building Free</Link>
                 </Button>
                 
                 <p className="mt-6 text-sm text-muted-foreground">

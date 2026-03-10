@@ -1,4 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import TemplateGrid from '@/components/templates/TemplateGrid';
@@ -8,7 +10,7 @@ import { Template } from '@/types/resume';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
 
 const SelectTemplate = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { userType, selectedTemplate, setSelectedTemplate } = useResumeStore();
 
   const handleSelectTemplate = (template: Template) => {
@@ -17,7 +19,7 @@ const SelectTemplate = () => {
 
   const handleContinue = () => {
     if (selectedTemplate) {
-      navigate('/builder');
+      router.push('/builder');
     }
   };
 
@@ -47,7 +49,7 @@ const SelectTemplate = () => {
             <Button
               variant="outline"
               size="lg"
-              onClick={() => navigate('/get-started')}
+              onClick={() => router.push('/get-started')}
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back

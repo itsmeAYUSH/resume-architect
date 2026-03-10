@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
 
@@ -47,13 +47,13 @@ const HeroSection = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row animate-slide-up animation-delay-300">
             <Button variant="hero" asChild>
-              <Link to="/get-started">
+              <Link href="/get-started">
                 Create Your Resume
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             <Button variant="hero-outline" asChild>
-              <Link to="/templates">Browse Templates</Link>
+              <Link href="/templates">Browse Templates</Link>
             </Button>
           </div>
           

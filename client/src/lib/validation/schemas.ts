@@ -3,9 +3,14 @@ import { sanitizeString } from '@/lib/security';
 import type { ResumeData } from '@/types/resume';
 
 // ─── Helper Refinements ──────────────────────────────────────────────────────
+// Apply .min/.max before .transform (ZodEffects does not have .min/.max)
 
-const sanitizedString = (maxLength: number) =>
-  z.string().transform(sanitizeString).max(maxLength);
+const sanitizedString = (maxLength: number, minLength?: number) => {
+  const base = minLength != null
+    ? z.string().min(minLength).max(maxLength)
+    : z.string().max(maxLength);
+  return base.transform(sanitizeString);
+};
 
 const optionalUrl = z
   .string()
@@ -22,7 +27,7 @@ const dateField = z
 // ─── Individual Section Schemas ──────────────────────────────────────────────
 
 export const personalInfoSchema = z.object({
-  fullName: sanitizedString(120).min(1, 'Full name is required'),
+  fullName: sanitizedString(120, 1),
   title: sanitizedString(120),
   email: z.string().email('Invalid email address').max(254),
   phone: z
@@ -38,8 +43,8 @@ export const personalInfoSchema = z.object({
 
 export const educationSchema = z.object({
   id: z.string(),
-  institution: sanitizedString(200).min(1, 'Institution name required'),
-  degree: sanitizedString(200).min(1, 'Degree required'),
+  institution: sanitizedString(200, 1),
+  degree: sanitizedString(200, 1),
   field: sanitizedString(200),
   startDate: dateField,
   endDate: dateField,
@@ -50,8 +55,8 @@ export const educationSchema = z.object({
 
 export const experienceSchema = z.object({
   id: z.string(),
-  company: sanitizedString(200).min(1, 'Company name required'),
-  position: sanitizedString(200).min(1, 'Position required'),
+  company: sanitizedString(200, 1),
+  position: sanitizedString(200, 1),
   location: sanitizedString(120),
   startDate: dateField,
   endDate: dateField,
@@ -62,7 +67,7 @@ export const experienceSchema = z.object({
 
 export const projectSchema = z.object({
   id: z.string(),
-  name: sanitizedString(200).min(1, 'Project name required'),
+  name: sanitizedString(200, 1),
   description: sanitizedString(1500),
   technologies: z.array(sanitizedString(50)).max(20),
   link: optionalUrl,
@@ -73,14 +78,14 @@ export const projectSchema = z.object({
 
 export const skillSchema = z.object({
   id: z.string(),
-  name: sanitizedString(100).min(1, 'Skill name required'),
+  name: sanitizedString(100, 1),
   level: z.enum(['beginner', 'intermediate', 'advanced', 'expert']),
   category: sanitizedString(100),
 });
 
 export const certificationSchema = z.object({
   id: z.string(),
-  name: sanitizedString(200).min(1, 'Certification name required'),
+  name: sanitizedString(200, 1),
   issuer: sanitizedString(200),
   date: dateField,
   expiryDate: dateField.optional(),
@@ -90,13 +95,13 @@ export const certificationSchema = z.object({
 
 export const languageSchema = z.object({
   id: z.string(),
-  name: sanitizedString(100).min(1, 'Language name required'),
+  name: sanitizedString(100, 1),
   proficiency: z.enum(['native', 'fluent', 'professional', 'conversational', 'basic']),
 });
 
 export const customSectionItemSchema = z.object({
   id: z.string(),
-  title: sanitizedString(200).min(1, 'Title required'),
+  title: sanitizedString(200, 1),
   subtitle: sanitizedString(200).optional(),
   date: sanitizedString(100).optional(),
   description: sanitizedString(2000).optional(),
@@ -104,7 +109,7 @@ export const customSectionItemSchema = z.object({
 
 export const customSectionSchema = z.object({
   id: z.string(),
-  title: sanitizedString(100).min(1, 'Section title required'),
+  title: sanitizedString(100, 1),
   items: z.array(customSectionItemSchema).max(20),
 });
 

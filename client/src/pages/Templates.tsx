@@ -1,17 +1,19 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import TemplateGrid from '@/components/templates/TemplateGrid';
 import { useResumeStore } from '@/store/resumeStore';
 import { Template } from '@/types/resume';
-import { useNavigate } from 'react-router-dom';
 
 const Templates = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { setSelectedTemplate } = useResumeStore();
 
   const handleSelectTemplate = (template: Template) => {
     setSelectedTemplate(template);
-    navigate('/builder');
+    router.push('/builder');
   };
 
   return (

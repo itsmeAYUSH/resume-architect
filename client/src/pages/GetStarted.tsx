@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import UserTypeCard from '@/components/usertype/UserTypeCard';
@@ -9,7 +11,7 @@ import { UserType } from '@/types/resume';
 import { ArrowRight } from 'lucide-react';
 
 const GetStarted = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { userType, setUserType } = useResumeStore();
   const [selected, setSelected] = useState<UserType | null>(userType);
 
@@ -20,7 +22,7 @@ const GetStarted = () => {
 
   const handleContinue = () => {
     if (selected) {
-      navigate('/select-template');
+      router.push('/select-template');
     }
   };
 
