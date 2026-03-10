@@ -1,0 +1,53 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+bun.lockb
+package-lock.json
+
+# Build outputs
+dist/
+build/
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database
+*.sqlite
+*.db
+.postgres_data/
+
+# Testing
+coverage/
+.nyc_output/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Runtime
+*.pid
+*.pid.lock
+.turbo/
+
+# Temporary files
+tmp/
+temp/
